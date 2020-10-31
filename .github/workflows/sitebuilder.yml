@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - feature/uow-util
 
 env:
     SB_PATH: /fac/sci/dcs/teaching/material/cs141/test 
