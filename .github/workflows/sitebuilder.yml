@@ -5,9 +5,7 @@ on:
   push:
     branches:
       - master
-
-env:
-    SB_PATH: /fac/sci/dcs/teaching/material/cs141/test 
+      - feature/sitebuilder-sync
 
 jobs:
     build:
@@ -37,5 +35,4 @@ jobs:
             UOW_PASSWORD: ${{ secrets.SB_PASSWORD }}
           run: |
             sudo chmod +x ./bin/uow-util
-            ./bin/uow-util sitebuilder edit --page=$SB_PATH --file=content.html
-            for f in ./files/*; do ./bin/uow-util sitebuilder upload --page=$SB_PATH --file=$f --name=$(basename $f); done
+            ./bin/uow-util sitebuilder sync --config=sitebuilder.yaml
