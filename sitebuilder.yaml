@@ -3,4 +3,4 @@
   properties:
     spanRHS: true
   files:
-  - files/
+  - files/*
