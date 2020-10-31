@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - feature/uow-util
 
 env:
     SB_PATH: /fac/sci/dcs/teaching/material/cs141/test 
@@ -21,21 +22,21 @@ jobs:
         - name: Initialisation 
           run: mkdir bin 
 
-        # Download sitebuilder-util
-        - name: Download sitebuilder-util
+        # Download uow-util
+        - name: Download uow-util
           uses: Legion2/download-release-action@v2.1.0
           with:
-            repository: mbg/sitebuilder-util
+            repository: mbg/uow-apis
             tag: 'latest'
             path: bin
-            file: sitebuilder-util
+            file: uow-util
 
         # Publish the files from this repository to Sitebuilder
         - name: Publish to Sitebuilder 
           env: 
-            SB_USER: ${{ secrets.SB_USER }}
-            SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+            UOW_USER: ${{ secrets.SB_USER }}
+            UOW_PASSWORD: ${{ secrets.SB_PASSWORD }}
           run: |
-            sudo chmod +x ./bin/sitebuilder-util
-            ./bin/sitebuilder-util edit --page=$SB_PATH --file=content.html
-            for f in ./files/*; do ./bin/sitebuilder-util upload --page=$SB_PATH --file=$f --name=$(basename $f); done
+            sudo chmod +x ./bin/uow-util
+            ./bin/uow-util sitebuilder edit --page=$SB_PATH --file=content.html
+            for f in ./files/*; do ./bin/uow-util sitebuilder upload --page=$SB_PATH --file=$f --name=$(basename $f); done
